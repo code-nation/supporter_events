@@ -1,0 +1,38 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "font-awesome";
+
+.working-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  background-color: rgba(46, 54, 74, 0.81);
+  z-index: 1001;
+
+  display: none;
+
+  div {
+    height: 100%;
+
+    .message-container {
+      display: table;
+
+      .message {
+        display: table-cell;
+        vertical-align: middle;
+
+        h2 {
+          padding: 50px;
+          margin: 0;
+
+          border-radius: 5px;
+
+          background-color: white;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+          <div class="well">
+              <h4>Instructions for importing events</h4>
+              <p>Please upload a spreadsheet with the data for the events you wish to import. There is a correct format for valid events that you can see in <%= link_to 'this example spreadsheet', 'https://docs.google.com/spreadsheets/d/18n7L8cf7_voYQhfYguyL0so-Ecy_DJiBviyMXE_dJ7g/edit?usp=sharing', target: "_blank"  %>.</p>
+              <p>The order of the columns is not important, but the column headers must match the example above, and the date/time format must also match. The only columns that are required are highlighted red in the example spreadsheet, but it is recommended that you provide data for all columns to ensure that your events can be mapped and that a contact is assigned for each event.</p>
+          </div>
+        </div>
+        <div class="col-md-12">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><%= fa_icon 'cloud-download' %> Import events</h3>
+                </div>
+                <div class="panel-body">
+                  <fieldset>
+                    <%= form_tag(import_events_path, method: :post, multipart: true, data: { execute: 'showOverlay' }) do %>
+                      <div class="form-group">
+                        <%= file_field_tag :event %>
+                      </div>
+                      <div class="form-group">
+                        <%= submit_tag "Upload Events", class: 'btn btn-primary btn-sm' %>
+                        <%= link_to 'Back', imported_events_path, class: 'btn btn-default btn-sm' %>
+                      </div>
+                    <% end %>
+                  </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

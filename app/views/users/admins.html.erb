@@ -1,0 +1,55 @@
+<section class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>
+        <%= fa_icon "user-secret" %> Administrators
+        <%= link_to 'Invite administrator', new_user_path, class: 'btn btn-primary pull-right' %>
+      </h3>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>&nbsp;</th>
+            <th>Receive notifications?</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td><%= current_user.email %></td>
+            <td><%= current_user.created_at.strftime('%d %B %Y') %></td>
+            <td>
+              <%= form_for current_user, :url => receive_notification_user_path(current_user), method: :put, remote: true do |f| %>
+                <%= f.check_box :receive_notifications %> <span class="label label-success notif" style="display:none;">Saved</span>
+              <% end %>
+            </td>
+          </tr>
+          <% @users.each do |user| %>
+            <% unless user == current_user %>
+              <tr>
+                <td><%= user.email %></td>
+                <td><%= user.created_at.strftime('%d %B %Y') %></td>
+                <td>
+                  <%= form_for user, :url => receive_notification_user_path(user), method: :put, remote: true do |f| %>
+                    <%= f.check_box :receive_notifications, { disabled: true } %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<script type="text/javascript">
+  $(function() {
+    $('form').on('change', 'input:checkbox', function () {
+      $(this).submit();
+      $('.notif').fadeIn('slow');
+      $('.notif').fadeOut(3000);
+    });
+  });
+</script>

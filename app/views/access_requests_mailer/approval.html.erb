@@ -1,0 +1,4 @@
+<p>
+  <%= @user.email %> is requesting to join <%= ENV['APP_NAME'] %>. Click <%= link_to 'here', approve_user_url(@user.id, code: @password) %> to approve their request.
+</p>
+<p>If you no longer wish to receive any notification emails please update your preferences here: <%= link_to "https://#{ENV['APP_DOMAIN']}/users/admins", "https://#{ENV['APP_DOMAIN']}/users/admins" %></p>

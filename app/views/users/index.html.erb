@@ -1,0 +1,46 @@
+<section class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>
+        <%= fa_icon 'user-circle' %> Users
+        <%= link_to 'Invite user', new_user_invitation_path, class: 'btn btn-primary pull-right' %>
+      </h3>
+      
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Email</th>
+          <th>Is approved?</th>
+          <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @users.each do |user| %>
+            <tr>
+              <td><%= user.email %></td>
+              <td><%= user.is_approved ? 'Yes' : 'No' %></td>
+              <td>
+              <div class="btn-group pull-right">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Action <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <% if user.is_approved %>
+                    <li><%= link_to 'Make Admin', make_admin_user_path(user), method: :put, data: { confirm: 'Are you sure?' } %></li>
+                  <% else %>
+                    <li><%= link_to 'Approve', approve_user_path(user), method: :put, data: { confirm: 'Are you sure?' } %></li>
+                  <% end %>
+                  
+                  <li role="separator" class="divider"></li>
+                  <li><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+                </ul>
+              </div>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

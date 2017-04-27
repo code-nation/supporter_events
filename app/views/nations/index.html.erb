@@ -1,0 +1,64 @@
+<section class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="well">
+        <h4>How does this work?</h4>
+        <p>All nations that have been connected to this app can configure any of their events to be cloned directly into the central <%= ENV['APP_NAME'] %> calendar. In order to set an event to be cloned, simply add the "<%= ENV['EVENT_PAGE_TAG'] %>" tag to that event where it appears in the source nation's control panel. By default the sync process runs each day to clone any new events tagged "<%= ENV['EVENT_PAGE_TAG'] %>" in the connected nations listed below.</p>
+        <h4>Need to clone an event right away?</h4>
+        <p>If you just added an event to your nation (or have just given the "<%= ENV['EVENT_PAGE_TAG'] %>" tag to an existing event) and want to clone it into the <%= ENV['APP_NAME'] %> calendar straight away (rather than waiting for the automatic daily sync) then please select the "synchronise now" action for the relevant nation below. This will run the cloning process straight away and add your new event(s) to the central <%= ENV['APP_NAME'] %> calendar.</p>
+        <% unless current_user.is_admin? %>
+          <P>Please note that "synchronise now" option will only appear for nations that  you have connected to this app.</p>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <h3>
+        <%= fa_icon "refresh" %> Nations
+        <%= link_to 'Add Nation', new_nation_path, class: 'btn btn-primary pull-right' %>
+      </h3>
+
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Slug</th>
+          <th>Nation administrator</th>
+          <th>Is connected?</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+          <% @nations.each do |nation| %>
+              <tr>
+                <td><%= nation.slug %></td>
+                <td><%= nation.user.email %></td>
+                <td><%= nation.is_connected_to_nb? ? 'Yes' : 'No' %></td>
+                <td>
+                  <% if nation.nation_belongs_to_user?(current_user) || current_user.is_admin? %>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Action <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                          <% if nation.is_connected_to_nb? %>
+                              <% if current_user.is_admin || nation.user.is_approved %>
+                                <li><%= link_to 'Synchronise now', sync_nation_path(nation), method: :post, data: { execute: 'showOverlay' } %></li>
+                              <li role="separator" class="divider"></li>
+                              <% end %>
+                              <li><%= link_to 'Disconnect Nation', disconnect_nation_path(nation), method: :delete, data: { confirm: 'Are you sure?' } %></li>
+                          <% else %>
+                              <li><%= link_to 'Reconnect Nation', reconnect_nation_path(nation), method: :post %></li>
+                          <% end %>
+                        </ul>
+                      </div>
+                  <% else %>
+                      N/A
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,19 @@
+<p>Hey <%= @admin_email %></p>
+
+<p><%= @supporter_full_name %> has just added "<%= @action_name %>" to the <%= ENV['APP_NAME'] %> calendar. You can review that action in the NationBuilder control panel at the following link: <%= link_to @event_link, @event_link %>, but it will not appear on the site until it has been reviewed and published</p>
+
+<p>
+    You can see the profile for <%= @supporter['first_name'] %> here: <%= link_to @supporter_profile_link, @supporter_profile_link %>, or simply contact them on the details below:
+    <br>
+    Email: <%= @supporter['email'] %>
+    <br>
+    Mobile: <%= @supporter['mobile'] %>
+</p>
+
+<p><strong>Approval Process</strong></p>
+<ol>
+    <li>Double-check all content and details
+    <li>Publish the new event via the control panel link above</li>
+</ol>
+
+<p>If you no longer wish to receive these notifications please update your preferences here: <%= link_to "https://#{ENV['APP_DOMAIN']}/users/admins", "https://#{ENV['APP_DOMAIN']}/users/admins" %></p>

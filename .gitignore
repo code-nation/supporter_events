@@ -1,0 +1,27 @@
+/.bundle
+/log
+/tmp
+.idea
+/documentacion
+*.rbc
+*.sassc
+.sass-cache
+capybara-*.html
+.rspec
+.rvmrc
+/vendor/bundle
+/public/system/*
+/coverage/
+/spec/tmp/*
+**.orig
+rerun.txt
+pickle-email-*.html
+.project
+.DS_Store
+Desktop.ini
+/public/tmp/*
+test_form.html
+config/env-vars.yml
+.ruby-gemset
+# Ignore application configuration
+/config/application.yml

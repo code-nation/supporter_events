@@ -1,0 +1,125 @@
+<nav class="navbar navbar-default">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="<%= root_path %>"><%= fa_icon "calendar-o" %> <%= ENV['APP_NAME'] %></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
+            <% if current_user.is_admin? %>
+                <%# Dropdown for administrators %>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= fa_icon "user-secret" %> Admins <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <%= link_to admins_users_path do %>
+                        <%= fa_icon "list-ul" %> View all admins
+                      <% end %>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li>
+                      <%= link_to new_user_path do %>
+                        <%= fa_icon 'envelope-o' %> Invite new admin
+                      <% end %>
+                    </li>
+                  </ul>
+                </li>
+                <%# Dropdown for users %>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= fa_icon "user-circle-o" %> Users <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <%= link_to users_path do %>
+                        <%= fa_icon "users" %> View all users
+                      <% end %>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li>
+                      <%= link_to new_user_invitation_path do %>
+                        <%= fa_icon 'envelope-o' %> Invite new user
+                      <% end %>
+                    </li>
+                  </ul>
+                </li>
+            <% end %>
+            
+            <% if current_user.is_admin? || current_user.is_approved? %>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= fa_icon "refresh" %> Nation Sync <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <%= link_to nations_path do %>
+                      <%= fa_icon "refresh" %> View synced nations
+                    <% end %>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                  <li>
+                    <%= link_to new_nation_path do %>
+                      <%= fa_icon "plug" %> Connect your nation
+                    <% end %>
+                  </li>
+                </ul>
+              </li>
+            <% end %>
+
+            <% if current_user.is_admin? || current_user.is_approved %>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= fa_icon "cloud-download" %> Import events <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li>
+                    
+                  <%= link_to imported_events_path do %>
+                     <%= fa_icon "file-excel-o" %> View imported files
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to imports_events_path do %>
+                     <%= fa_icon "cloud-download" %> Import events
+                    <% end %>
+                  </li>
+                </ul>
+              </li>
+            <% end %>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= fa_icon "user-circle" %> <%= current_user.email %> <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <%= link_to edit_user_registration_path do %>
+                    <%= fa_icon "key" %> Change password
+                  <% end %>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li>
+                  <%= link_to destroy_user_session_path, method: :delete do %>
+                    <%= fa_icon "sign-out" %> Sign out
+                  <% end %>
+                </li>
+              </ul>
+            </li>
+        <% else %>
+            <li>
+              <%= link_to new_user_session_path do %>
+                <%= fa_icon 'sign-in' %> Log in
+              <% end %>
+              
+            </li>
+            <li>
+              <%= link_to request_access_users_path do %>
+                <%= fa_icon 'lock' %> Request access
+              <% end %>
+            </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
