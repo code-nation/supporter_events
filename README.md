@@ -199,4 +199,4 @@ Use the following commands to test/run the core rake tasks:
 
 Code Nation is a five-star rated creative agency for progressive advocates and organisations. We specialise in using NationBuilder to create unique and engaging campaign websites that drive supporters to take action for your cause. And we also create excellent apps like this to turbo-charge the great work you do.
 
-Have any questions? Get in touch with our team via our website: www.codenation.com
+Have any questions? Get in touch with our team via our website: www.codenation.com, or [shoot us an email](info@codenation.com).
